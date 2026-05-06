@@ -1,0 +1,19 @@
+1.
+import pandas as pd, matplotlib.pyplot as plt
+
+df = pd.read_csv("california.csv")
+
+print(df.head())
+print(df.shape)
+
+df.hist()
+plt.show()
+
+df.boxplot()
+plt.show()
+
+for c in df.select_dtypes('number'):
+    q1,q3 = df[c].quantile([0.25,0.75])
+    iqr = q3-q1
+    out = df[(df[c]<q1-1.5*iqr)|(df[c]>q3+1.5*iqr)]
+    print(c,"Outliers:",len(out))
