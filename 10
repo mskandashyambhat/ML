@@ -1,0 +1,31 @@
+10.
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import confusion_matrix,accuracy_score
+
+df = pd.read_csv("breast_cancer.csv")
+
+x = df.iloc[:,:-1]
+y = df.iloc[:,-1]
+
+x = StandardScaler().fit_transform(x)
+
+k = KMeans(2,random_state=0)
+
+k.fit(x)
+
+pred = k.labels_
+
+print("Confusion Matrix:")
+print(confusion_matrix(y,pred))
+
+print("Accuracy:",accuracy_score(y,pred))
+
+plt.scatter(x[:,0],x[:,1],c=pred)
+
+plt.title("K-Means Clustering")
+
+plt.show()
