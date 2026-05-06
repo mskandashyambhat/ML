@@ -1,0 +1,28 @@
+6.
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(42)
+
+x = np.linspace(0,10,100)
+
+y = 2*x + np.sin(x) + np.random.randn(100)
+
+def lwr(x,x0,tau):
+
+    w = np.exp(-(x-x0)**2/(2*tau**2))
+
+    return np.sum(w*y)/np.sum(w)
+
+taus = [0.1,0.5,1]
+
+plt.scatter(x,y,color='red')
+
+for t in taus:
+
+    yp = [lwr(x,i,t) for i in x]
+
+    plt.plot(x,yp,label=f"tau={t}")
+
+plt.legend()
+plt.show()
