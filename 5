@@ -1,0 +1,40 @@
+5.
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+
+np.random.seed(0)
+
+x = np.random.rand(100)
+
+labels = ['Class1' if i<=0.5 else 'Class2' for i in x]
+
+df = pd.DataFrame({
+    'Value':x,
+    'Label':labels
+})
+
+print(df)
+
+df['Value'].hist()
+plt.show()
+
+x_train = x[:50].reshape(-1,1)
+y_train = labels[:50]
+
+x_test = x[50:].reshape(-1,1)
+y_test = labels[50:]
+
+for k in [1,2,3,4,5,20,30]:
+
+    knn = KNeighborsClassifier(n_neighbors=k)
+
+    knn.fit(x_train,y_train)
+
+    y_pred = knn.predict(x_test)
+
+    print("\nk =",k)
+    print("Predicted Labels:",y_pred)
+    print("Accuracy:",accuracy_score(y_test,y_pred))
