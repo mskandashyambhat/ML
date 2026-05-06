@@ -1,0 +1,20 @@
+4.
+import pandas as pd
+
+df = pd.read_csv("tennis.csv")
+
+h = ['0']*(df.shape[1]-1)
+
+for _,r in df.iterrows():
+
+    if r.iloc[-1]=='Yes':
+
+        for i in range(len(h)):
+
+            if h[i]=='0':
+                h[i]=r[i]
+
+            elif h[i]!=r[i]:
+                h[i]='?'
+
+print("Hypothesis:",h)
