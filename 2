@@ -1,0 +1,14 @@
+2.
+import pandas as pd, seaborn as sns, matplotlib.pyplot as plt
+
+df = pd.read_csv("california.csv")
+
+df = df.select_dtypes('number')
+
+print(df.corr())
+
+sns.heatmap(df.corr(),annot=True)
+plt.show()
+
+sns.pairplot(df)
+plt.show()
