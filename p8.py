@@ -1,0 +1,20 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+
+df = pd.read_csv("breast_cancer_data.csv")
+
+x = df.iloc[:,:-1]
+y = df.iloc[:,-1]
+
+m = DecisionTreeClassifier()
+m.fit(x,y)
+
+print("Accuracy:",m.score(x,y))
+
+sample = x.iloc[[0]]
+print("Predicted Class:",m.predict(sample)[0])
+
+plt.figure(figsize=(12,8))
+plot_tree(m,filled=True)
+plt.show()
